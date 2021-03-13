@@ -1,0 +1,2 @@
+A basic GraphQL implimentation with Postrgres using graphQL and seralize libraries.
+Full CRUD functionallity for Users database. SQL file defines the schema for the Postgres database.
