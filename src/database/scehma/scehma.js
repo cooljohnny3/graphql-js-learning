@@ -95,12 +95,39 @@ const Mutation = new GraphQLObjectType({
                         type: new GraphQLNonNull(GraphQLString)
                     }
                 },
-                async resolve(_, args) {
+                resolve(_, args) {
                     return db.models.user.destroy({
                         where: {
                             id: args.id
                         }
                     });
+                }
+            },
+            modifyUser: {
+                type: GraphQLBoolean,
+                args: {
+                    id: {
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    name: {
+                        type: GraphQLString
+                    },
+                    age: {
+                        type: GraphQLInt
+                    },
+                    email: {
+                        type: GraphQLString
+                    },
+                },
+                async resolve(_, args) {
+                    let temp = await db.models.user.update(
+                        args,
+                        {
+                            where: {
+                                id: args.id
+                            }
+                    });
+                    return temp[0] > 0;
                 }
             }
         }
